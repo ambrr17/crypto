@@ -1,0 +1,57 @@
+{
+    "sync.autoDownload": true,
+    "sync.autoUpload": true,
+    "sync.gist": "f0aabd518f13df2297a9d50a356c739b",
+    "redhat.telemetry.enabled": false,
+    "editor.minimap.enabled": false,
+    "yaml.schemas": {
+        "file:///c%3A/Users/admin/.vscode/extensions/atlassian.atlascode-2.10.12/resources/schemas/pipelines-schema.json": "bitbucket-pipelines.yml"
+    },
+    "atlascode.jira.explorer.enabled": false,
+    "atlascode.bitbucket.explorer.enabled": false,
+    "atlascode.bitbucket.pipelines.explorerEnabled": false,
+    "atlascode.bitbucket.issues.explorerEnabled": false,
+    "atlascode.bitbucket.contextMenus.enabled": false,
+    "atlascode.bitbucket.statusbar.enabled": false,
+    "atlascode.bitbucket.statusbar.showUser": true,
+    "atlascode.bitbucket.statusbar.showProduct": true,
+    "workbench.iconTheme": "vscode-icons",
+    "atlascode.jira.hover.enabled": false,
+    "atlascode.jira.todoIssues.enabled": false,
+    "atlascode.jira.statusbar.enabled": false,
+    "atlascode.jira.enabled": false,
+    "html-css-class-completion.enableEmmetSupport": true,
+    "[blade]": {
+        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    },
+    "workbench.enableExperiments": false,
+    "workbench.view.alwaysShowHeaderActions": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "workbench.editor.wrapTabs": true,
+    "workbench.commandPalette.preserveInput": true,
+    "workbench.experimental.editor.dragAndDropIntoEditor.enabled": true,
+    "editor.fontSize": 16,
+    "window.confirmBeforeClose": "always",
+    "liveSassCompile.settings.formats": [
+        {
+            "format": "expanded",
+            "extensionName": ".css",
+            "savePath": "/css"
+        }
+    ],
+    "liveSassCompile.settings.excludeList": [
+        "/**/fonts/**",
+        "/**/node_modules/**",
+        "/vendor/**",
+        "/.vscode/**",
+        "/libs/**",
+    ],
+    "liveSassCompile.settings.includeItems": [
+        "/scss/main.scss",
+    ],
+    "liveSassCompile.settings.showOutputWindowOn": "Error",
+    "liveSassCompile.settings.generateMap": false,
+    "html-to-css-autocompletion.autocompletionFilesScope": "workspace",
+    "gitlens.hovers.currentLine.over": "line",
+    "liveServer.settings.donotShowInfoMsg": true
+}
