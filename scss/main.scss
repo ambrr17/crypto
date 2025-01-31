@@ -15,8 +15,12 @@
 
 :root {
     --bg-black: #141619;
-    // --header-height: 70px;
+    --header-height: 90px;
     --header-mob-height: 70px;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -26,6 +30,14 @@ body {
     background-color: var(--bg-black);
     overscroll-behavior-y: none;
     overflow-x: hidden;
+}
+
+[class$=__container] {
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 32px;
+    padding-left: 32px;
+    max-width: 1120px;
 }
 
 .header {
@@ -284,6 +296,7 @@ body {
     }
 }
 
+//mob-menu
 .mob-menu {
     top: var(--header-mob-height);
     left: 0;
@@ -415,6 +428,103 @@ body {
 
     @media (max-width: 1280px) {
         margin-top: 70px;
+    }
+}
+
+.sc1 {
+    min-height: 600px;
+
+    &__bg {}
+
+    &__container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+    }
+
+    &__h1 {
+        max-width: 840px;
+        height: auto;
+        margin: 0 auto;
+        margin-top: 30px;
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 500;
+        font-size: 80px;
+        line-height: 1.075;
+        text-align: center;
+        color: #fff;
+    }
+
+    &__descr {
+        margin-top: 30px;
+        width: 100%;
+        color: rgb(229, 229, 229);
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: normal;
+        line-height: 1.5;
+        text-align: center;
+    }
+
+    &__btn {
+        margin-top: 40px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        padding: 18px 26px;
+        background: rgba(0, 0, 0, 0);
+        border: 0;
+        border-radius: 2px;
+        outline: 0;
+        overflow: hidden;
+        cursor: pointer;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 2px;
+            background: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%);
+            transition: transform .4s;
+            z-index: 1;
+        }
+
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid rgba(0, 0, 0, 0);
+            border-radius: 2px;
+            border-image: linear-gradient(135deg, #665DCD 0%, #5FA4E6 44.76%, #D2AB67 100%) 1;
+            transition: opacity .2s;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        span {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 19px;
+            line-height: 22px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFFFFF;
+            z-index: 2;
+        }
+
+        &:hover {
+            &::before {
+                transform: translate3d(100%, 0, 0);
+            }
+        }
     }
 }
 
