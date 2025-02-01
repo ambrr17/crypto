@@ -1,8 +1,10 @@
+import TradeBar from "./TradeBar.js"
 import { log, debounce } from "./utils.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', debounce(onWindowResize, 200))
 
+    // Header start
     const mobMenuTrigger = document.querySelector('.header__mob-menu-trigger')
     const mobMenu = document.querySelector('.header__mob-menu')
     mobMenuTrigger.addEventListener('click', (e) => {
@@ -21,6 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.closest('.mob-menu__has-submenu').classList.toggle('mob-menu__has-submenu--open')
         })
     })
+    // Header end
+    //---------------
+    //Trade bar start
+    // const tradeBar = document.querySelector('.trade-bar')
+    // setTimeout(() => { tradeBar.classList.add('trade-bar--running') }, 1000)
+    
+    const tradeBar = new TradeBar('tradeBar')
+    //Trade bar end
 
 
 

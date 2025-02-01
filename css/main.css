@@ -5,6 +5,12 @@
           box-sizing: border-box;
 }
 
+::before,
+::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
 @font-face {
   font-family: "Inter";
   src: url("/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format("truetype-variations");
@@ -14,8 +20,10 @@
 }
 :root {
   --bg-black: #141619;
-  --header-height: 90px;
+  --header-desktop-height: 90px;
   --header-mob-height: 70px;
+  --trade-bar-desktop-height: 78px;
+  --trade-bar-mob-height: 60px;
 }
 
 html {
@@ -35,8 +43,13 @@ body {
   width: 100%;
   margin: 0 auto;
   padding-left: 32px;
-  padding-left: 32px;
+  padding-right: 32px;
   max-width: 1120px;
+}
+@media (max-width: 1279.98px) {
+  [class$=__container] {
+    max-width: 1120px;
+  }
 }
 
 .header {
@@ -264,7 +277,7 @@ body {
   -webkit-transform: rotate(-135deg);
           transform: rotate(-135deg);
 }
-@media (max-width: 1280px) {
+@media (max-width: 1279.98px) {
   .header {
     -webkit-box-align: center;
         -ms-flex-align: center;
@@ -296,12 +309,14 @@ body {
 }
 
 .mob-menu {
+  position: relative;
   top: var(--header-mob-height);
   left: 0;
   bottom: 0;
   right: 0;
   height: 100%;
   background-color: var(--bg-black);
+  z-index: 100;
 }
 .mob-menu[class$=mob-menu--open] .mob-menu__bkg {
   pointer-events: auto;
@@ -403,14 +418,16 @@ body {
   min-height: 100vh;
   height: 100%;
 }
-@media (max-width: 1280px) {
+@media (max-width: 1279.98px) {
   .main {
-    margin-top: 70px;
+    margin-top: var(--header-mob-height);
   }
 }
 
 .sc1 {
-  min-height: 600px;
+  height: calc(100vh - var(--header-desktop-height) - var(--trade-bar-desktop-height));
+  min-height: 500px;
+  border-bottom: 1px solid #f00;
 }
 .sc1__container {
   display: -webkit-box;
@@ -431,7 +448,6 @@ body {
   max-width: 840px;
   height: auto;
   margin: 0 auto;
-  margin-top: 30px;
   font-family: "Inter";
   font-style: normal;
   font-weight: 500;
@@ -441,8 +457,9 @@ body {
   color: #fff;
 }
 .sc1__descr {
-  margin-top: 30px;
+  margin-top: 32px;
   width: 100%;
+  max-width: 584px;
   color: rgb(229, 229, 229);
   font-size: 20px;
   font-weight: 400;
@@ -452,6 +469,17 @@ body {
 }
 .sc1__btn {
   margin-top: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.sc1__btn-wrap {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -467,7 +495,7 @@ body {
   overflow: hidden;
   cursor: pointer;
 }
-.sc1__btn::before {
+.sc1__btn-wrap::before {
   content: "";
   position: absolute;
   top: 0;
@@ -482,7 +510,7 @@ body {
   transition: transform 0.4s, -webkit-transform 0.4s;
   z-index: 1;
 }
-.sc1__btn::after {
+.sc1__btn-wrap::after {
   content: "";
   position: absolute;
   top: 0;
@@ -508,7 +536,173 @@ body {
   color: #FFFFFF;
   z-index: 2;
 }
-.sc1__btn:hover::before {
+.sc1__btn:hover .sc1__btn-wrap::before {
   -webkit-transform: translate3d(100%, 0, 0);
           transform: translate3d(100%, 0, 0);
+}
+@media (max-width: 1023.98px) {
+  .sc1 {
+    height: calc(100vh - var(--header-mob-height) - var(--trade-bar-height));
+  }
+  .sc1__h1 {
+    font-size: 64px;
+  }
+  .sc1__descr {
+    max-width: 410px;
+  }
+}
+@media (max-width: 767.98px) {
+  .sc1__h1 {
+    padding-top: 40px;
+    font-size: 38px;
+  }
+  .sc1__descr {
+    font-size: 19px;
+  }
+}
+
+.trade-bar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  height: var(--trade-bar-desktop-height);
+  background-color: #fff;
+  overflow: hidden;
+  opacity: 1;
+  z-index: 1;
+}
+.trade-bar__label {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  height: 100%;
+  padding-right: 64px;
+  padding-left: 64px;
+  background-color: #fff;
+  color: #141619;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  z-index: 1;
+}
+.trade-bar__items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  -webkit-animation: scrollTradeBar linear infinite;
+          animation: scrollTradeBar linear infinite;
+  -webkit-animation-duration: 30s;
+          animation-duration: 30s;
+  overflow: hidden;
+}
+.trade-bar__item {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+  padding: 0 30px;
+  color: #141619;
+}
+.trade-bar__item--iconed {
+  padding-left: 30px;
+}
+.trade-bar__item-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+}
+.trade-bar__item-descr {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+}
+.trade-bar__item-price {
+  display: block;
+  font-size: 20px;
+  line-height: 0.9166666667;
+}
+.trade-bar__item-name {
+  display: block;
+  margin-top: 2px;
+  font-size: 16px;
+  line-height: 1.25;
+}
+@media (max-width: 1023.98px) {
+  .trade-bar {
+    height: var(--trade-bar-mob-height);
+  }
+  .trade-bar__label {
+    padding-top: 1px;
+    padding-right: 32px;
+    padding-left: 32px;
+    font-size: 20px;
+  }
+  .trade-bar__item {
+    padding-top: 1px;
+  }
+  .trade-bar__item-price {
+    font-size: 20px;
+  }
+  .trade-bar__item-name {
+    margin-top: 0;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .trade-bar {
+    -webkit-animation: none;
+            animation: none;
+    -webkit-transform: none;
+            transform: none;
+    opacity: 1;
+  }
+  .trade-bar__label {
+    display: none;
+  }
+}
+
+@-webkit-keyframes scrollTradeBar {
+  from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  to {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
+}
+
+@keyframes scrollTradeBar {
+  from {
+    -webkit-transform: translateX(100%);
+            transform: translateX(100%);
+  }
+  to {
+    -webkit-transform: translateX(-100%);
+            transform: translateX(-100%);
+  }
 }
