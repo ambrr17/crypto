@@ -26,10 +26,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Header end
     //---------------
     //Trade bar start
-    // const tradeBar = document.querySelector('.trade-bar')
-    // setTimeout(() => { tradeBar.classList.add('trade-bar--running') }, 1000)
-    
-    const tradeBar = new TradeBar('tradeBar')
+    window.tradeBar = new TradeBar({
+        containerId: 'tradeBar',
+        symbols: ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'ADAUSDT', 'XRPUSDT', 'DOTUSDT', 'SOLUSDT', 'LTCUSDT', 'DOGEUSDT'],
+        apiUrl: 'https://api.binance.com/api/v3/ticker/price',
+        // interval: 5000
+    },)
     //Trade bar end
 
 

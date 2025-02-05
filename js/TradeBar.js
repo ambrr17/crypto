@@ -1,96 +1,126 @@
-export default
+export default class TradeBar {
+    constructor({ containerId, symbols, apiUrl, interval = 0, speed = 50 }) {
+        this.containerId = containerId
+        this.symbols = symbols
+        this.apiUrl = apiUrl
+        this.interval = interval
+        this.speed = speed
 
-    class TradeBar {
-    constructor(containerId, updateInterval = 5000) {
-        this.container = document.getElementById(containerId)
-        this.ticker = document.createElement('div')
-        this.ticker.className = 'trade-bar__items'
-        this.container.appendChild(this.ticker)
-        this.updateInterval = updateInterval
-        this.data = []
-        this.start()
-    }
+        this.prices = []
+        this.container = document.getElementById(this.containerId)
+        this.scroller = document.createElement('div')
+        this.scroller.classList.add('trade-bar__items')
+        this.container.appendChild(this.scroller)
 
-    start() {
-        this.fetchData().then(data => {
-            this.data = data
+        if (this.interval >= 5000) {
+            setInterval(async () => {
+                await this.fetchCryptoPrices()
+            }, this.interval)
+        }
+
+        this.fetchCryptoPrices().then(prices => {
+            this.prices = prices
+            console.log(this.prices)
             this.render()
         })
-
-        setInterval(() => {
-            this.fetchData().then(data => {
-                this.data = data
-                this.render()
-            })
-        }, this.updateInterval)
     }
 
-    async fetchData() {
-        // const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum%2Clitecoin&vs_currencies=usd')
-        // const prices = await response.json()
-        return [
-            { name: 'Bitcoin', price: 102238.00 },
-            { name: 'Ethereum', price: 3261.01 },
-            { name: 'Litecoin', price: 122.88 },
-            { name: 'Bitcoin', price: 102238.00 },
-            { name: 'Ethereum', price: 3261.01 },
-            { name: 'Litecoin', price: 122.88 },
-            { name: 'Bitcoin', price: 102238.00 },
-        ]
-        // return [
-        //     { name: 'Bitcoin', price: prices.bitcoin.usd },
-        //     { name: 'Ethereum', price: prices.ethereum.usd },
-        //     { name: 'Litecoin', price: prices.litecoin.usd }
-        // ]
+    async fetchCryptoPrices() {
+        try {
+            const response = await fetch(this.apiUrl);
+            if (!response.ok) {
+                throw new Error('Не удалось получить данные с API.');
+            }
+            const data = await response.json();
+            const filteredData = data.filter(item => this.symbols.includes(item.symbol));
+            return filteredData.map(item => ({
+                symbol: item.symbol,
+                price: parseFloat(item.price).toFixed(2),
+            }));
+        } catch (error) {
+            console.error('Ошибка при получении данных:', error);
+            return null;
+        }
     }
 
     render() {
-        // const itemWidth = this.ticker.getBoundingClientRect().width / this.data.length
-        // console.log(itemWidth)
+        if (this.prices.length === 0) {
+            console.log('!!!prices empty')
+            return
+        }
 
-        this.ticker.innerHTML = ''
-        this.data.forEach(item => {
-            const itemElement = document.createElement('div')
-            itemElement.className = 'trade-bar__item'
-            // itemElement.style.width = (itemWidth < 150 ? 150 : itemWidth) + 'px'
+        this.scroller.innerHTML = ''
+        this.prices.forEach(({ symbol, price }) => {
+            const item = document.createElement('div');
+            item.className = 'trade-bar__item';
+            // item.style.setProperty('--itemWidth', (itemWidth < 150 ? 150 : itemWidth) + 'px');
 
-            const itemElementIcon = document.createElement('img')
-            itemElementIcon.className = 'trade-bar__item-icon'
-            itemElementIcon.src = '/img/trade-bar/avax.svg'
-            itemElement.appendChild(itemElementIcon)
+            const icon = document.createElement('img');
+            icon.className = 'trade-bar__item-icon';
+            // icon.src = `/img/trade-bar/${symbol.split('USDT')[0].toLowerCase()}.svg`;
+            icon.alt = `${symbol} icon`;
 
-            const itemElementDescr = document.createElement('div')
-            itemElementDescr.className = 'trade-bar__item-descr'
-            itemElement.appendChild(itemElementDescr)
+            const descr = document.createElement('div');
+            descr.className = 'trade-bar__item-descr';
 
-            const itemElementPrice = document.createElement('span')
-            itemElementPrice.className = 'trade-bar__item-price'
-            itemElementPrice.textContent = `${item.name}`
-            itemElementDescr.appendChild(itemElementPrice)
+            const priceSpan = document.createElement('span');
+            priceSpan.className = 'trade-bar__item-price';
+            priceSpan.textContent = `$${price}`;
 
-            const itemElementName = document.createElement('span')
-            itemElementName.className = 'trade-bar__item-name'
-            itemElementName.textContent = `$${item.price.toFixed(2)}`
-            itemElementDescr.appendChild(itemElementName)
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'trade-bar__item-name';
+            nameSpan.textContent = symbol;
 
-            this.ticker.appendChild(itemElement)
+            descr.appendChild(priceSpan);
+            descr.appendChild(nameSpan);
+
+            item.appendChild(icon);
+            item.appendChild(descr);
+
+            this.scroller.appendChild(item)
         })
 
-        setInterval(() => { this.monitorPosition() }, 1000)
+        let tradeBarWidth = document.querySelector('.trade-bar').offsetWidth
+        let tradeBarItemsWidth = document.querySelector('.trade-bar__items').offsetWidth
+        let itemsToAdd = Math.floor(tradeBarWidth / tradeBarItemsWidth)
 
+        console.log('itemsToAdd: ', itemsToAdd)
+
+        for (let i = 0; i < itemsToAdd; i++) {
+            this.scroller.innerHTML += this.scroller.innerHTML
+            console.log(i)
+        }
+
+        this.animate()
     }
 
-    monitorPosition() {
-        const containerRect = this.container.getBoundingClientRect()
-        const tickerRect = this.ticker.getBoundingClientRect()
+    animate() {
+        let position = 0
+        const step = () => {
+            position -= 1
+            this.scroller.style.transform = `translateX(${position}px)`
+            if (Math.abs(position) >= this.scroller.scrollWidth / 2) {
+                position = 0
+                document.body.style.backgroundColor = `#${Math.floor(Math.random() * 16777215).toString(16)}`
+            }
+            requestAnimationFrame(step)
+        }
+        step()
+    }
 
-        let tickerLength = this.ticker.children.length
-        let firstItem = this.ticker.children[0]
-        let lastItem = this.ticker.children[tickerLength - 1]
+    updateData() {
+        this.fetchCryptoPrices()
+        this.render()
+    }
 
-        // console.log('containerRect.right - ', containerRect.right)
-        console.log('firstItem - ', firstItem.getBoundingClientRect().right)
-        // console.log(lastItem.getBoundingClientRect().right > containerRect.right ? 'last out' : 'last in')
-        // console.log(firstItem.getBoundingClientRect().right > containerRect.left ? 'first in' : 'first out')
+    addCrypto(symbol) {
+        this.symbols.push(symbol)
+        this.render()
+    }
+
+    removeCrypto(symbol) {
+        this.symbols = this.symbols.filter(item => item !== symbol)
+        this.render()
     }
 }
+

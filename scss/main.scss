@@ -437,7 +437,6 @@ body {
 .main {
     min-height: 100vh;
     height: 100%;
-    // border-top: 1px solid #fff;
 
     @media (max-width: 1279.98px) {
         margin-top: var(--header-mob-height);
@@ -447,7 +446,6 @@ body {
 .sc1 {
     height: calc(100vh - var(--header-desktop-height) - var(--trade-bar-desktop-height));
     min-height: 500px;
-    border-bottom: 1px solid #f00;
 
     &__bg {}
 
@@ -586,6 +584,13 @@ body {
     opacity: 1;
     z-index: 1;
 
+    &__wrap {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
     &__label {
         display: flex;
         align-items: center;
@@ -606,25 +611,19 @@ body {
         display: flex;
         align-items: center;
         position: relative;
-        width: 100%;
+        width: auto;
         height: 100%;
-        display: inline-block;
-        animation: scrollTradeBar linear infinite;
-        animation-duration: 30s;
-        overflow: hidden;
+        background-color: rgba(0, 0, 0, .2);
     }
 
     &__item {
+        --itemWidth: 150px;
         display: inline-flex;
         align-items: center;
+        width: var(--itemWidth);
         height: 100%;
-        padding: 0 30px;
+        padding: 0 15px;
         color: #141619;
-        // border-left: 1px solid  #141619;
-
-        &--iconed {
-            padding-left: 30px;
-        }
     }
 
     &__item-icon {
@@ -633,7 +632,7 @@ body {
         margin-right: 15px;
     }
 
-    &__item-descr{
+    &__item-descr {
         display: flex;
         flex-direction: column;
         gap: 5px;
@@ -692,11 +691,11 @@ body {
 }
 
 @keyframes scrollTradeBar {
-    from {
+    0% {
         transform: translateX(100%);
     }
 
-    to {
+    100% {
         transform: translateX(-100%);
     }
 }
