@@ -22,7 +22,7 @@
     --bg-black: #141619;
     --header-desktop-height: 90px;
     --header-mob-height: 70px;
-    --trade-bar-desktop-height: 78px;
+    --trade-bar-desktop-height: 88px;
     --trade-bar-mob-height: 60px;
 }
 
@@ -37,6 +37,10 @@ body {
     background-color: var(--bg-black);
     overscroll-behavior-y: none;
     overflow-x: hidden;
+
+    &.mob-menu--open .header {
+        background-color: var(--bg-black);
+    }
 }
 
 [class$=__container] {
@@ -52,11 +56,14 @@ body {
 }
 
 .header {
+    position: fixed;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 22px 64px;
-    background-color: var(--bg-black);
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 10;
 
     &__logo > img {
         width: auto;
@@ -438,22 +445,33 @@ body {
     min-height: 100vh;
     height: 100%;
 
-    @media (max-width: 1279.98px) {
-        margin-top: var(--header-mob-height);
-    }
+    @media (max-width: 1279.98px) {}
 }
 
 .sc1 {
-    height: calc(100vh - var(--header-desktop-height) - var(--trade-bar-desktop-height));
-    min-height: 500px;
+    position: relative;
 
-    &__bg {}
+    &__bg {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 38vh;
+        min-height: 228px;
+        overflow: hidden;
+        z-index: 0;
+    }
 
     &__container {
+        position: relative;
+        height: calc(100vh - var(--trade-bar-desktop-height));
+        min-height: 500px;
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: start;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0);
+        z-index: 1;
     }
 
     &__h1 {
@@ -549,7 +567,9 @@ body {
     }
 
     @media (max-width: 1023.98px) {
-        height: calc(100vh - var(--header-mob-height) - var(--trade-bar-height));
+        &__container {
+            height: calc(100vh - var(--trade-bar-mob-height));
+        }
 
         &__h1 {
             font-size: 64px;

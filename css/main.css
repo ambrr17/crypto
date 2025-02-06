@@ -22,7 +22,7 @@
   --bg-black: #141619;
   --header-desktop-height: 90px;
   --header-mob-height: 70px;
-  --trade-bar-desktop-height: 78px;
+  --trade-bar-desktop-height: 88px;
   --trade-bar-mob-height: 60px;
 }
 
@@ -37,6 +37,9 @@ body {
   background-color: var(--bg-black);
   overscroll-behavior-y: none;
   overflow-x: hidden;
+}
+body.mob-menu--open .header {
+  background-color: var(--bg-black);
 }
 
 [class$=__container] {
@@ -53,6 +56,8 @@ body {
 }
 
 .header {
+  position: fixed;
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -63,7 +68,8 @@ body {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 22px 64px;
-  background-color: var(--bg-black);
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 10;
 }
 .header__logo > img {
   width: auto;
@@ -418,17 +424,23 @@ body {
   min-height: 100vh;
   height: 100%;
 }
-@media (max-width: 1279.98px) {
-  .main {
-    margin-top: var(--header-mob-height);
-  }
-}
-
 .sc1 {
-  height: calc(100vh - var(--header-desktop-height) - var(--trade-bar-desktop-height));
-  min-height: 500px;
+  position: relative;
+}
+.sc1__bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 38vh;
+  min-height: 228px;
+  overflow: hidden;
+  z-index: 0;
 }
 .sc1__container {
+  position: relative;
+  height: calc(100vh - var(--trade-bar-desktop-height));
+  min-height: 500px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -439,9 +451,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: 1;
 }
 .sc1__h1 {
   max-width: 840px;
@@ -540,8 +554,8 @@ body {
           transform: translate3d(100%, 0, 0);
 }
 @media (max-width: 1023.98px) {
-  .sc1 {
-    height: calc(100vh - var(--header-mob-height) - var(--trade-bar-height));
+  .sc1__container {
+    height: calc(100vh - var(--trade-bar-mob-height));
   }
   .sc1__h1 {
     font-size: 64px;

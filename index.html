@@ -7,10 +7,19 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="css/main.css">
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "../node_modules/three/build/three.module.js",
+                "three/addons/": "../node_modules/three/examples/jsm/"
+            }
+        }
+    </script>
     <script type="module" src="/js/app.js" defer></script>
 </head>
 
 <body>
+    <div id="warning"></div>
     <header class="header">
         <a href="" class="header__logo">
             <img srcset="./img/logo.png 1x, ./img/logo@2.png 2x" alt="">

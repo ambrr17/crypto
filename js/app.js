@@ -1,15 +1,17 @@
+import * as hero from "./hero.js"
 import TradeBar from "./TradeBar.js"
 import { log, debounce } from "./utils.js"
 
 document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', debounce(onWindowResize, 200))
 
-    // Header start
+    // Header
     const mobMenuTrigger = document.querySelector('.header__mob-menu-trigger')
     const mobMenu = document.querySelector('.header__mob-menu')
     mobMenuTrigger.addEventListener('click', (e) => {
         mobMenuTrigger.classList.toggle('header__mob-menu-trigger--open')
         mobMenu.classList.toggle('header__mob-menu--open')
+        document.body.classList.toggle('mob-menu--open')
     })
 
     const mobMenuBkg = document.querySelector('.mob-menu__bkg')
@@ -23,16 +25,14 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target.closest('.mob-menu__has-submenu').classList.toggle('mob-menu__has-submenu--open')
         })
     })
-    // Header end
-    //---------------
-    //Trade bar start
+
+    //Trade bar
     window.tradeBar = new TradeBar({
         containerId: 'tradeBar',
         symbols: ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'ADAUSDT', 'XRPUSDT', 'DOTUSDT', 'SOLUSDT', 'LTCUSDT', 'DOGEUSDT'],
         apiUrl: 'https://api.binance.com/api/v3/ticker/price',
         // interval: 5000
     },)
-    //Trade bar end
 
 
 
