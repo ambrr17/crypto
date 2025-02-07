@@ -1,4 +1,5 @@
-import * as hero from "./hero.js"
+import HeroScene from "./HeroScene.js"
+import HeroScene1 from "./HeroScene1.js"
 import TradeBar from "./TradeBar.js"
 import { log, debounce } from "./utils.js"
 
@@ -26,13 +27,16 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
+    //HeroScene
+    new HeroScene1()
+
     //Trade bar
-    window.tradeBar = new TradeBar({
-        containerId: 'tradeBar',
-        symbols: ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'ADAUSDT', 'XRPUSDT', 'DOTUSDT', 'SOLUSDT', 'LTCUSDT', 'DOGEUSDT'],
-        apiUrl: 'https://api.binance.com/api/v3/ticker/price',
-        // interval: 5000
-    },)
+    // new TradeBar({
+    //     containerId: 'tradeBar',
+    //     symbols: ['BTCUSDT', 'ETHUSDT', 'BNBUSDT', 'ADAUSDT', 'XRPUSDT', 'DOTUSDT', 'SOLUSDT', 'LTCUSDT', 'DOGEUSDT'],
+    //     apiUrl: 'https://api.binance.com/api/v3/ticker/price',
+    //     // interval: 5000
+    // },)
 
 
 
