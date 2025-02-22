@@ -1,6 +1,8 @@
 import HeroScene from "./HeroScene.js"
 import HeroScene1 from "./HeroScene1.js"
+import HeroScene2 from "./HeroScene2.js"
 import TradeBar from "./TradeBar.js"
+import SandBox from "./SandBox.js"
 import { log, debounce } from "./utils.js"
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,7 +30,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
 
     //HeroScene
-    new HeroScene1()
+    // new HeroScene2('#ccc')
+
+    new SandBox()
 
     //Trade bar
     // new TradeBar({
